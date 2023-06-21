@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+
+<div class="container">
+    {{ wtf.quick_form(form, novalidate=True, button_map={'submit': 'primary'}) }}
+</div>
+
+{% if data: %}
+<div class="container">
+    <h5>Search results:</h5>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <p style="color: grey">{{ message }}</p>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <div class="row row-cols-md-3 mb-3 text-center">
+        {% for item in data: %}
+        <div class="col-sm-12">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h6 class="my-0 fw-normal">{{ item.brewery_type }}</h6>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title pricing-card-title">{{ item.name }}</small>
+                    </h5>
+                    <ul class="list-unstyled mt-3 mb-4">
+                        {% if item.street %}
+                        <li><i class="fa-solid fa-location-dot"></i> {{ item.street }}</li>
+                        {% endif %}
+                        <li><i class="fa-solid fa-earth-americas"></i> {{ item.city }}, {{ item.state }}, {{ item.country }}</li>
+                        {% if item.phone %}
+                        <li><i class="fa-solid fa-phone-volume"></i> {{ item.phone }}</li>
+                        {% endif %}
+                    </ul>
+                    <a class="w-50 btn btn-md btn-outline-primary" href="{{ item.website_url }}">Go to
+                        webiste</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

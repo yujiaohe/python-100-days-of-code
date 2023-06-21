@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container my-5">
+    <div class="p-5 text-center bg-warning-subtle rounded-3">
+        <div class="d-inline-flex gap-2 mb-5">
+            <img src="{{ url_for('static', filename='brewery.png') }}" style="width: 60px; height: 60px">
+        </div>
+        <h3 class="text-body-emphasis">{{ brewery.name }}</h3>
+        <p class="col-lg-8 mx-auto fs-5 text-muted">{{ brewery.brewery_type.title() }}</p>
+        <p class="col-lg-8 mx-auto fs-5 text-muted"><i class="fa-solid fa-location-dot"></i>  {{ brewery.street }}</p>
+        <p class="col-lg-8 mx-auto fs-5 text-muted"><i class="fa-solid fa-earth-americas"></i>  {{ brewery.city }}, {{ brewery.state }}, {{ brewery.country }}</p>
+        {% if brewery.phone: %}
+        <p class="col-lg-8 mx-auto fs-5 text-muted"><i class="fa-solid fa-phone-volume"></i>  {{ brewery.phone }}</p>
+        {% endif %}
+        <div class="d-inline-flex gap-2 mb-5">
+            {% if brewery.website_url %}
+            <a href="{{ brewery.website_url }}"
+               class="d-inline-flex align-items-center btn btn-primary btn-md px-4 rounded-pill" type="button">Go to
+                website</a>
+            {% endif %}
+        </div>
+        <p class="col-lg-8 mx-auto fs-6 text-muted">🥳 Refresh to get another one</p>
+    </div>
+</div>
+{% endblock %}
